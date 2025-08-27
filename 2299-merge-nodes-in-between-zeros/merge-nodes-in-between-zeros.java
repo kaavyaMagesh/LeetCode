@@ -14,15 +14,21 @@ class Solution {
         if(head==null){
             return head;
         }
-        int sum=0;
         ListNode curr=head;
-        while(curr.val!=0){
-            sum+=curr.val;
-            curr=curr.next;
-        }
+        ListNode sumStore=head;
 
-        head.val=sum;
-        head.next=mergeNodes(curr);
+        while(curr!=null){
+            int sum=0;
+            while(curr.val!=0){
+                sum+=curr.val;
+                curr=curr.next;
+            }
+
+            sumStore.val=sum;
+            curr=curr.next;
+            sumStore.next=curr;
+            sumStore=sumStore.next;
+        }
         return head;
-    }
+}
 }
