@@ -5,6 +5,12 @@ class Solution(object):
         :type truckSize: int
         :rtype: int
         """
+        # Greedy choice: always take boxes with the highest units first
+# because each box occupies 1 unit of truck space, so choosing
+# higher units earlier maximizes total units without affecting
+# future choices.
+# Sort by units descending so each truck slot gives maximum units
+
         tot_units=0
         count=truckSize
         boxTypes.sort(key= lambda x:x[1],reverse=True)
