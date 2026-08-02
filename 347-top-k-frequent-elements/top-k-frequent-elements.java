@@ -1,25 +1,34 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> dict=new HashMap<>();
-        int [] ans=new int[k];
-        for(int i:nums){
-dict.put(i,dict.getOrDefault(i,0)+1);
+
+        HashMap<Integer, Integer> dict = new HashMap<>();
+
+        // Count frequencies
+        for (int num : nums) {
+            dict.put(num, dict.getOrDefault(num, 0) + 1);
         }
 
-        PriorityQueue<Map.Entry<Integer,Integer>> pq=new PriorityQueue<>((a,b)->a.getValue()-b.getValue());
+        // Min heap based on frequency
+        PriorityQueue<Map.Entry<Integer, Integer>> pq =
+                new PriorityQueue<>((a, b) -> a.getValue() - b.getValue()); //rule for min heap
+                //for max heap -(a, b) -> b.getValue() - a.getValue()
 
-        for(Map.Entry<Integer,Integer> entry: dict.entrySet()){
+        // Keep only k most frequent elements
+        for (Map.Entry<Integer, Integer> entry : dict.entrySet()) {
 
             pq.offer(entry);
-            if(pq.size()>k){
+
+            if (pq.size() > k) {
                 pq.poll();
             }
- }
-            for(int i=k-1;i>=0;i--){
-ans[i]=pq.poll().getKey();
-            }
-       
-return ans;
+        }
 
+        int[] ans = new int[k];
+
+        for (int i = k - 1; i >= 0; i--) {
+            ans[i] = pq.poll().getKey();
+        }
+
+        return ans;
     }
 }
